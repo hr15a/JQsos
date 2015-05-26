@@ -1,6 +1,6 @@
 <map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node CREATED="1407879025392" ID="ID_535720443" MODIFIED="1407885849190" TEXT="Solutions mobiles GNC / DTSI">
+<node CREATED="1407879025392" ID="type" MODIFIED="1407885849190" TEXT="Solutions mobiles GNC / DTSI">
 <node CREATED="1407879044510" ID="ID_1783758993" MODIFIED="1407885851291" POSITION="right" TEXT="Crit&#xe8;res g&#xe9;n&#xe9;raux Editeur et Solution">
 <node CREATED="1407879068977" ID="ID_1381892697" MODIFIED="1407885745140" TEXT="Validit&#xe9; de l&apos;&#xe9;diteur">
 <node CREATED="1407879095075" ID="ID_175830066" MODIFIED="1407879101587" TEXT="P&#xe9;rennit&#xe9; financi&#xe8;re">
