@@ -598,8 +598,10 @@ public class Evaluation extends QsosFile implements Serializable {
 		builder.append(uploader);
 		builder.append("\n\t, repository=");
 		builder.append(repository);
-		builder.append("\n\t, fileContent=");
-		builder.append(Arrays.toString(fileContent));
+		/*
+		 * builder.append("\n\t, fileContent=");
+		 * builder.append(Arrays.toString(fileContent));
+		 */
 		builder.append("\n]");
 		return builder.toString();
 	}
