@@ -43,10 +43,9 @@ public class EvaluationUtils {
 			pEvaluation.setLanguage(header.getLanguage());
 			pEvaluation.setLicenseDesc(header.getLicensedesc());
 			pEvaluation.setSections(new Long(document.getSection().size()));
-
-			System.out.println(count(pEvaluation, "element"));
-			System.out.println(count(pEvaluation, "score"));
-			System.out.println(count(pEvaluation, "comment"));
+			pEvaluation.setCriteria(count(pEvaluation, "element"));
+			pEvaluation.setCriteriaScorable(count(pEvaluation, "score"));
+			pEvaluation.setComments(count(pEvaluation, "comment"));
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
@@ -56,9 +55,9 @@ public class EvaluationUtils {
 		return pEvaluation;
 	}
 
-	private static int count(Evaluation pEvaluation, String criteria) {
+	private static Long count(Evaluation pEvaluation, String criteria) {
 
-		int result = 0;
+		Long result = null;
 
 		try {
 
@@ -72,7 +71,7 @@ public class EvaluationUtils {
 
 			NodeList lNodeList = doc.getElementsByTagName(criteria);
 
-			result = lNodeList.getLength();
+			result = new Long(lNodeList.getLength());
 
 		} catch (IOException | ParserConfigurationException | SAXException e) {
 

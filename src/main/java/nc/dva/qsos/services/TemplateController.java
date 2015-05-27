@@ -52,10 +52,41 @@ public class TemplateController {
 
 			lTemplate.setFileContent(pFile.getBytes());
 			lTemplate = TemplateUtils.parseTemplate(lTemplate);
-			lTemplate.setCreationTimestamp(TimeStamper.getTimestamp());
-			lTemplate.setFile(pFile.getName());
-			lTemplate.setRepository(RepositoryUtils.INCOMING_REPOSITORY);
-			// don't forget to set uploader...
+
+			/*
+			 * check if template already exist.
+			 */
+
+			if (lTemplateRepository.findByQsosAppFamily(lTemplate
+					.getQsosAppFamily()) != null) {
+
+				/*
+				 * Update it !
+				 */
+
+				lTemplate = lTemplateRepository.findByQsosAppFamily(lTemplate
+						.getQsosAppFamily());
+
+				lTemplate.setUpdateTimestamp(TimeStamper.getTimestamp());
+				lTemplate.setRepository(RepositoryUtils.INCOMING_REPOSITORY);
+				// don't forget to set uploader...
+
+			} else {
+
+				/*
+				 * create it !
+				 */
+
+				lTemplate.setCreationTimestamp(TimeStamper.getTimestamp());
+				lTemplate.setFile(pFile.getName());
+				lTemplate.setRepository(RepositoryUtils.INCOMING_REPOSITORY);
+				// don't forget to set uploader...
+
+			}
+
+			/*
+			 * save it in all cases !
+			 */
 
 			lTemplate = lTemplateRepository.save(lTemplate);
 
