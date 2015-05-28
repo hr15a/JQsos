@@ -41,7 +41,7 @@ public class EvaluationControllerTest {
 
 		try {
 			Path lPath = Paths.get(ClassLoader.getSystemResource(
-					"Android SDK-latest_fr.qsos").toURI());
+					"Sencha Touch-2.3.1a_fr.qsos").toURI());
 
 			result = new MockMultipartFile(lPath.getFileName().toString(),
 					Files.readAllBytes(lPath));
