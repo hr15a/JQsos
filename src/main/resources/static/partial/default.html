@@ -1,0 +1,10 @@
+<div class="content" ng-controller="homeController as homeCtl">
+	<ul>
+
+		<li class="listFunctionalDomain"
+			ng-repeat="domain in homeCtl.functionalDomains">
+			<i class="fa fa-folder" ng-click="deployCtrl.addDomain()"> {{ domain }}</i>
+		</li>
+
+	</ul>
+</div>
