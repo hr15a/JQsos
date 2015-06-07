@@ -1,10 +1,58 @@
 <div class="content" ng-controller="homeController as homeCtl">
-	<ul>
 
-		<li class="listFunctionalDomain"
-			ng-repeat="domain in homeCtl.functionalDomains">
-			<i class="fa fa-folder" ng-click="deployCtrl.addDomain()"> {{ domain }}</i>
-		</li>
+	<table class="document-list">
 
-	</ul>
+		<tr ng-repeat="domain in homeCtl.functionalDomains"
+			class="document-list">
+
+			<td class="document-list" colspan="2"><span
+				ng-click="homeCtl.getEvaluationByDomain(domain)"> <i
+					class="{{ homeCtl.currentDomain == domain ? 'fa fa-folder-open' : 'fa fa-folder' }}"></i>
+					{{ domain }} - ({{ homeCtl.countEvaluations[domain] }})
+			</span>
+				<table ng-show="homeCtl.evaluations[domain].length > 0"
+					class="document-list">
+					<thead class="document-list-header">
+						<td style="width: 30px;"></td>
+						<td>Application</td>
+						<td>Version</td>
+					</thead>
+					<tbody ng-repeat="evaluation in homeCtl.evaluations[domain]">
+						<tr ng-class-odd="'odd'" ng-class-even="'even'">
+							<td><i
+								class="{{ homeCtl.currentEvaluation === $index ? 'fa fa-folder-open' : 'fa fa-folder' }}"
+								ng-click="homeCtl.evaluationDetail($index)"></i></td>
+							<td>{{ evaluation.appName }}</td>
+							<td>{{ evaluation.release }}</td>
+						</tr>
+						<tr ng-show="homeCtl.currentEvaluation === $index">
+							<td colspan="3">
+								<ul>
+									<li>language : {{evaluation.language}}
+							</li>
+							<li>license : {{evaluation.licenseDesc}}</li>
+							<li>repository : {{evaluation.repository}}</li>
+							<li>created : {{evaluation.creationTimestamp |
+								date:"dd/MM/yyyy"}}</li>
+							</ul>
+							<p ng-show="evaluation.repository === 'incoming'">
+								<!-- 
+									validate it to push evaluation from incoming repository to master repository
+									make it as a button !!!
+									 -->
+								<div class="button">
+									<span class="fa fa-check-square-o"></span>
+									<span >validate evaluation</span>
+								</div>
+								
+							</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></td>
+
+		</tr>
+
+	</table>
+
 </div>

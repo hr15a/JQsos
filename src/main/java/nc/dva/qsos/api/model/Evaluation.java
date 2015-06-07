@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "evaluations")
 @NamedQueries({
-		@NamedQuery(name = "evaluation.getDomains", query = "SELECT DISTINCT e.qsosAppFamily FROM Evaluation e"),
+		@NamedQuery(name = "evaluation.findByDomain", query = "SELECT e FROM Evaluation e WHERE e.qsosAppFamily = ?"),
 		@NamedQuery(name = "evaluation.countByDomain", query = "SELECT COUNT(e.id) FROM Evaluation e WHERE e.qsosAppFamily = ?") })
 public class Evaluation extends QsosFile implements Serializable {
 

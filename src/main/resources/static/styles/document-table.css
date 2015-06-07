@@ -1,0 +1,57 @@
+.document-list {
+	width: 100%
+}
+
+.document-list-header {
+	width: 100%
+}
+
+table {
+	width: 100%
+}
+
+.document-list-header td {
+	color: white;
+	background-color: gray;
+	padding: 5px;
+}
+
+.document-list td, li {
+	padding: 5px;
+}
+
+.document-list ul {
+	padding-left: 30px;
+}
+
+.odd {
+	background-color: #F9F6F4;
+	color: #111b1b;
+}
+
+.even {
+	background-color: #E9E0DB;
+	color: #111b1b;
+}
+
+.button {
+	width: 200px;
+	height: 28px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background-color: black;
+	padding: 6px;
+	border-radius: 3px;
+	border: 1px solid black;
+	
+}
+
+.button span {
+	color: white;
+}
+
+.button:hover, .button:hover span {
+	background-color: white;
+	color: black;
+}

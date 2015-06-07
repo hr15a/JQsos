@@ -1,6 +1,8 @@
 * {
 	background-color: white;
 	color: black;
+	font-family: "sansationregular";
+	font-size: 1em;
 }
 
 header {
@@ -17,8 +19,4 @@ header {
 	margin-right: auto;
 	margin-top: 10px;
 	padding: 5px;
-}
-
-.listFunctionalDomain {
-	list-style: none;
 }

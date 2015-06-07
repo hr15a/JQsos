@@ -11,6 +11,7 @@ import nc.dva.qsos.document.utils.EvaluationUtils;
 import nc.dva.qsos.document.utils.TimeStamper;
 import nc.dva.qsos.repository.utils.RepositoryUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,27 +22,27 @@ import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 
 @RestController
-@RequestMapping(value = "api/evaluation")
+@RequestMapping(value = "api")
 public class EvaluationController {
 
 	@Autowired
 	private EvaluationRepository lEvaluationRepository;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/evaluation", method = RequestMethod.GET)
 	public List<Evaluation> getAll() {
 
 		return lEvaluationRepository.findAll();
 
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/evaluation/{id}", method = RequestMethod.GET)
 	public Evaluation findById(@PathVariable("id") Long pId) {
 
 		return lEvaluationRepository.findOne(pId);
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/evaluation", method = RequestMethod.POST)
 	public Evaluation save(@RequestParam("file") MultipartFile pFile) {
 
 		Evaluation lEvaluation = null;
@@ -89,6 +90,26 @@ public class EvaluationController {
 		}
 
 		return lEvaluation;
+
+	}
+
+	@RequestMapping(value = "/evaluation/{qsosAppFamily}/count", method = RequestMethod.GET)
+	public Long countByFunctionalDomain(
+			@PathVariable("qsosAppFamily") String pQsosAppFamily) {
+
+		pQsosAppFamily = StringUtils.replace(pQsosAppFamily, "_", " ");
+
+		return lEvaluationRepository.countByDomain(pQsosAppFamily);
+
+	}
+
+	@RequestMapping(value = "/{qsosAppFamily}/evaluation", method = RequestMethod.GET)
+	public List<Evaluation> getByFunctionalDomain(
+			@PathVariable("qsosAppFamily") String pQsosAppFamily) {
+
+		pQsosAppFamily = StringUtils.replace(pQsosAppFamily, "_", " ");
+
+		return lEvaluationRepository.findByQsosAppFamily(pQsosAppFamily);
 
 	}
 
