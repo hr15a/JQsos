@@ -10,6 +10,7 @@ import nc.dva.qsos.QsosApplication;
 import nc.dva.qsos.api.model.Evaluation;
 import nc.dva.qsos.services.EvaluationController;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +26,33 @@ public class EvaluationControllerTest {
 	@Autowired
 	EvaluationController ctrl;
 
+	private String[] evaluations = { "Android SDK-latest_fr.qsos",
+			"AppCelerator-Titanium 3.3.0_fr.qsos",
+			"Objective C-unknowm_fr.qsos",
+			"Oracle ADF Mobile-11.1.2.4_fr.qsos", "Sencha Touch-2.3.1a_fr.qsos" };
+
 	@Test
 	public void createEvaluation_ShouldReturnEvaluation() {
-		MultipartFile file = getTestEvaluation();
 
-		Evaluation eval = ctrl.save(file);
+		for (String evaluation : evaluations) {
 
-		System.out.println(eval.toString());
+			MultipartFile file = getTestEvaluation(evaluation);
+
+			Evaluation eval = ctrl.save(file);
+
+			Assert.assertTrue(eval.getId() != null);
+
+		}
 
 	}
 
-	private MultipartFile getTestEvaluation() {
+	private MultipartFile getTestEvaluation(String evaluation) {
 
 		MultipartFile result = null;
 
 		try {
-			Path lPath = Paths.get(ClassLoader.getSystemResource(
-					"Sencha Touch-2.3.1a_fr.qsos").toURI());
+			Path lPath = Paths.get(ClassLoader.getSystemResource(evaluation)
+					.toURI());
 
 			result = new MockMultipartFile(lPath.getFileName().toString(),
 					Files.readAllBytes(lPath));

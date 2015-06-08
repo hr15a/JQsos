@@ -14,6 +14,7 @@ import nc.dva.qsos.api.model.Evaluation;
 import nc.dva.qsos.api.schema.qsos.generated.Document.Header;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -43,9 +44,8 @@ public class EvaluationUtils {
 			pEvaluation.setLanguage(header.getLanguage());
 			pEvaluation.setLicenseDesc(header.getLicensedesc());
 			pEvaluation.setSections(new Long(document.getSection().size()));
-			pEvaluation.setCriteria(count(pEvaluation, "element"));
-			pEvaluation.setCriteriaScorable(count(pEvaluation, "score"));
-			pEvaluation.setComments(count(pEvaluation, "comment"));
+
+			countCriteria(pEvaluation);
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
@@ -55,9 +55,26 @@ public class EvaluationUtils {
 		return pEvaluation;
 	}
 
-	private static Long count(Evaluation pEvaluation, String criteria) {
+	private static void countCriteria(Evaluation pEvaluation) {
 
-		Long result = null;
+		/*
+		 * relative to "element" nodes
+		 */
+		int criteria = 0;
+
+		/*
+		 * relative to "score" nodes
+		 */
+		int criteriaScorable = 0;
+		int criteriaScored = 0;
+		int criteriaNotScored = 0;
+
+		/*
+		 * relative to "comment" nodes
+		 */
+		int comments = 0;
+		int criteriaCommented = 0;
+		int criteriaNotCommented = 0;
 
 		try {
 
@@ -69,16 +86,76 @@ public class EvaluationUtils {
 			Document doc = builder.parse(new ByteArrayInputStream(pEvaluation
 					.getFileContent()));
 
-			NodeList lNodeList = doc.getElementsByTagName(criteria);
+			doc.getDocumentElement().normalize();
 
-			result = new Long(lNodeList.getLength());
+			criteria = doc.getElementsByTagName("element").getLength();
+			criteriaScorable = doc.getElementsByTagName("score").getLength();
+			comments = doc.getElementsByTagName("comment").getLength();
+
+			NodeList lNodeList = doc.getElementsByTagName("score");
+
+			int lNbNodes = lNodeList.getLength();
+
+			for (int i = 0; i < lNbNodes; i++) {
+
+				Node lNode = lNodeList.item(i);
+
+				org.w3c.dom.Element elem = (org.w3c.dom.Element) lNode;
+
+				if ("score".equals(elem.getNodeName())) {
+
+					if (lNode.getFirstChild() != null) {
+
+						criteriaScored++;
+
+					} else {
+
+						criteriaNotScored++;
+
+					}
+
+				}
+
+			}
+
+			lNodeList = doc.getElementsByTagName("comment");
+
+			lNbNodes = lNodeList.getLength();
+
+			for (int i = 0; i < lNbNodes; i++) {
+
+				Node lNode = lNodeList.item(i);
+
+				org.w3c.dom.Element elem = (org.w3c.dom.Element) lNode;
+
+				if ("comment".equals(elem.getNodeName())) {
+
+					if (lNode.getFirstChild() != null) {
+
+						criteriaCommented++;
+
+					} else {
+
+						criteriaNotCommented++;
+
+					}
+
+				}
+
+			}
+
+			pEvaluation.setCriteria(new Long(criteria));
+			pEvaluation.setCriteriaScorable(new Long(criteriaScorable));
+			pEvaluation.setComments(new Long(comments));
+			pEvaluation.setCriteriaCommented(new Long(criteriaCommented));
+			pEvaluation.setCriteriaNotCommented(new Long(criteriaNotCommented));
+			pEvaluation.setCriteriaScored(new Long(criteriaScored));
+			pEvaluation.setCriteriaNotScored(new Long(criteriaNotScored));
 
 		} catch (IOException | ParserConfigurationException | SAXException e) {
 
 			System.out.println(e.getMessage());
 		}
-
-		return result;
 
 	}
 
