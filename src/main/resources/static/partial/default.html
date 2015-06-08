@@ -28,24 +28,18 @@
 						<tr ng-show="homeCtl.currentEvaluation === $index">
 							<td colspan="3">
 								<ul>
-									<li>language : {{evaluation.language}}
-							</li>
-							<li>license : {{evaluation.licenseDesc}}</li>
-							<li>repository : {{evaluation.repository}}</li>
-							<li>created : {{evaluation.creationTimestamp |
-								date:"dd/MM/yyyy"}}</li>
-							</ul>
-							<p ng-show="evaluation.repository === 'incoming'">
-								<!-- 
-									validate it to push evaluation from incoming repository to master repository
-									make it as a button !!!
-									 -->
-								<div class="button">
-									<span class="fa fa-check-square-o"></span>
-									<span >validate evaluation</span>
+									<li>language : {{evaluation.language}}</li>
+									<li>license : {{evaluation.licenseDesc}}</li>
+									<li>repository : {{evaluation.repository}}</li>
+									<li>created : {{evaluation.creationTimestamp |
+										date:"dd/MM/yyyy"}}</li>
+								</ul>
+								<div class="button"
+									ng-click="homeCtl.validateEvaluation(evaluation)"
+									ng-show="evaluation.repository == 'incoming'">
+									<span class="fa fa-check-square-o"></span> <span>validate
+										evaluation</span>
 								</div>
-								
-							</p>
 							</td>
 						</tr>
 					</tbody>

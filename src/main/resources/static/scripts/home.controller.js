@@ -9,7 +9,7 @@ function homeController($log, templateServices, evaluationServices) {
 	vm.templates = [];
 	vm.functionalDomains = [];
 	vm.countEvaluations = {};
-	vm.evaluations = {};
+	vm.evaluations = [];
 	vm.currentDomain = "";
 	vm.currentEvaluation;
 
@@ -17,6 +17,7 @@ function homeController($log, templateServices, evaluationServices) {
 	vm.countEvaluationByDomain = countEvaluationByDomain;
 	vm.getEvaluationByDomain = getEvaluationByDomain;
 	vm.evaluationDetail = evaluationDetail;
+	vm.validateEvaluation = validateEvaluation;
 
 	getAllTemplates();
 
@@ -94,6 +95,29 @@ function homeController($log, templateServices, evaluationServices) {
 		} else {
 			vm.currentEvaluation = index;
 		}
+
+	}
+
+	function validateEvaluation(evaluation) {
+
+		evaluationServices
+				.validateEvaluation(evaluation)
+				.success(
+						function(data, status, headers, config) {
+
+							for (var index = 0; index < vm.evaluations[data.qsosAppFamily].length; index++) {
+
+								var identifiant = vm.evaluations[data.qsosAppFamily][index].id;
+
+								if (identifiant === data.id) {
+
+									vm.evaluations[data.qsosAppFamily][index] = data;
+								}
+							}
+
+						}).error(function(data, status, headers, config) {
+					$log.log("ERROR.");
+				})
 
 	}
 

@@ -20,4 +20,5 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 
 	@Query(name = "evaluation.findByDomain")
 	List<Evaluation> findByQsosAppFamily(String pQsosAppFamily);
+	
 }

@@ -14,6 +14,7 @@ import nc.dva.qsos.repository.utils.RepositoryUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class EvaluationController {
 	@Autowired
 	private EvaluationRepository lEvaluationRepository;
 
-	@RequestMapping(value="/evaluation", method = RequestMethod.GET)
+	@RequestMapping(value = "/evaluation", method = RequestMethod.GET)
 	public List<Evaluation> getAll() {
 
 		return lEvaluationRepository.findAll();
@@ -42,7 +43,7 @@ public class EvaluationController {
 
 	}
 
-	@RequestMapping(value="/evaluation", method = RequestMethod.POST)
+	@RequestMapping(value = "/evaluation", method = RequestMethod.POST)
 	public Evaluation save(@RequestParam("file") MultipartFile pFile) {
 
 		Evaluation lEvaluation = null;
@@ -111,6 +112,21 @@ public class EvaluationController {
 
 		return lEvaluationRepository.findByQsosAppFamily(pQsosAppFamily);
 
+	}
+
+	@RequestMapping(value = "/evaluation/validate", method = RequestMethod.PUT, consumes = "application/json")
+	public Evaluation validate(@RequestBody Evaluation pEvaluation) {
+
+		if ("incoming"
+				.equals(StringUtils.lowerCase(pEvaluation.getRepository()))) {
+			pEvaluation.setRepository(RepositoryUtils.MASTER_REPOSITORY);
+		}
+		
+		System.out.println(pEvaluation.toString());
+
+		pEvaluation = lEvaluationRepository.save(pEvaluation);
+
+		return pEvaluation;
 	}
 
 }

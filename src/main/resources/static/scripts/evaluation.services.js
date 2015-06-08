@@ -6,6 +6,7 @@ function evaluationServices($http, serviceBaseURL) {
 
 	self.countByFunctionalDomain = countByFunctionalDomain;
 	self.getByFunctionalDomain = getByFunctionalDomain;
+	self.validateEvaluation = validateEvaluation;
 
 	function countByFunctionalDomain(pFunctionalDomain) {
 		return $http({
@@ -21,5 +22,13 @@ function evaluationServices($http, serviceBaseURL) {
 		});
 	}
 
+	function validateEvaluation(pEvaluation) {
+		return $http({
+			method : 'PUT',
+			url : serviceBaseURL + '/evaluation/validate',
+			data: pEvaluation
+		});
+	}
+	
 	return self;
 }
