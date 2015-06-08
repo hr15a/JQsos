@@ -14,6 +14,7 @@
 					class="document-list">
 					<thead class="document-list-header">
 						<td style="width: 30px;"></td>
+						<td style="width: 30px;"></td>
 						<td>Application</td>
 						<td>Version</td>
 					</thead>
@@ -22,6 +23,8 @@
 							<td><i
 								class="{{ homeCtl.currentEvaluation === $index ? 'fa fa-folder-open' : 'fa fa-folder' }}"
 								ng-click="homeCtl.evaluationDetail($index)"></i></td>
+							<td><i
+								class="{{ evaluation.repository == 'incoming' ? 'fa fa-download' : 'fa fa-check' }}"</i></td>
 							<td>{{ evaluation.appName }}</td>
 							<td>{{ evaluation.release }}</td>
 						</tr>
