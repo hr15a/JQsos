@@ -20,7 +20,7 @@ public class TestEvaluationParsing {
 
 	private String[] evaluations = { "Android SDK-latest_fr.qsos",
 			"AppCelerator-Titanium 3.3.0_fr.qsos",
-			"Objective C-unknowm_fr.qsos",
+			"Objective C-unknowm_fr.qsos", "HTML5-5.1-draft_fr.qsos",
 			"Oracle ADF Mobile-11.1.2.4_fr.qsos", "Sencha Touch-2.3.1a_fr.qsos" };
 
 	@Test

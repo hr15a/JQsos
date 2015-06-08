@@ -16,7 +16,8 @@
 						<td style="width: 30px;"></td>
 						<td style="width: 30px;"></td>
 						<td>Application</td>
-						<td>Version</td>
+						<td>Release</td>
+						<td>Completed</td>
 					</thead>
 					<tbody ng-repeat="evaluation in homeCtl.evaluations[domain]">
 						<tr ng-class-odd="'odd'" ng-class-even="'even'">
@@ -27,9 +28,21 @@
 								class="{{ evaluation.repository == 'incoming' ? 'fa fa-download' : 'fa fa-check' }}"</i></td>
 							<td>{{ evaluation.appName }}</td>
 							<td>{{ evaluation.release }}</td>
+							<td>
+								<p class="progress">
+								<meter id="scoreProgress" 
+								       value="{{ (evaluation.criteriaScored / evaluation.criteriaScorable) * 100 | number:0 }}" 
+								       max="100" 
+								       min="0" 
+								       optimum="100" 
+								       low="100" 
+								       high="100">
+								</meter>
+								</p>
+							</td>
 						</tr>
 						<tr ng-show="homeCtl.currentEvaluation === $index">
-							<td colspan="3">
+							<td colspan="4">
 								<ul>
 									<li>language : {{evaluation.language}}</li>
 									<li>license : {{evaluation.licenseDesc}}</li>
@@ -39,7 +52,7 @@
 								</ul>
 								<div class="button"
 									ng-click="homeCtl.validateEvaluation(evaluation)"
-									ng-show="evaluation.repository == 'incoming'">
+									ng-show="evaluation.repository == 'incoming' && (evaluation.criteriaScored / evaluation.criteriaScorable) == 1">
 									<span class="fa fa-check-square-o"></span> <span>validate
 										evaluation</span>
 								</div>
