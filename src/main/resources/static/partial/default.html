@@ -18,6 +18,12 @@
 						<td>Application</td>
 						<td>Release</td>
 						<td>Completed</td>
+						<td>
+							<div class="button small">
+								<span class="fa fa-files-o"></span>
+								<span>Compare</span>
+							</div>
+						</td>
 					</thead>
 					<tbody ng-repeat="evaluation in homeCtl.evaluations[domain]">
 						<tr ng-class-odd="'odd'" ng-class-even="'even'">
@@ -39,6 +45,9 @@
 								       high="100">
 								</meter>
 								</p>
+							</td>
+							<td>
+								<input type="checkbox">
 							</td>
 						</tr>
 						<tr ng-show="homeCtl.currentEvaluation === $index">
