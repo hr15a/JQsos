@@ -77,6 +77,8 @@ public class TemplateUtils {
 
 			System.out.println(e.getMessage());
 		}
+		
+		System.out.println(result.toString());
 
 		return result;
 	}
