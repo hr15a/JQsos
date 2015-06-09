@@ -12,7 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import nc.dva.qsos.api.model.Template;
 import nc.dva.qsos.api.model.TemplateNode;
 
-import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -77,9 +76,9 @@ public class TemplateUtils {
 		} catch (IOException | ParserConfigurationException | SAXException e) {
 
 			System.out.println(e.getMessage());
-
-			Assert.fail();
 		}
+		
+		System.out.println(result.toString());
 
 		return result;
 	}

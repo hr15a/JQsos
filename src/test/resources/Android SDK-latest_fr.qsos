@@ -604,8 +604,8 @@
             <desc0>Aucune</desc0>
             <desc1>Propre au framework</desc1>
             <desc2>Libre de choix</desc2>
-            <comment></comment>
-            <score>0</score>
+            <comment>un commentaire</comment>
+            <score></score>
          </element>
       </element>
    </section>

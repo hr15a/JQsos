@@ -18,30 +18,38 @@ import org.xml.sax.SAXException;
 
 public class TestEvaluationParsing {
 
+	private String[] evaluations = { "Android SDK-latest_fr.qsos",
+			"AppCelerator-Titanium 3.3.0_fr.qsos",
+			"Objective C-unknowm_fr.qsos", "HTML5-5.1-draft_fr.qsos",
+			"Oracle ADF Mobile-11.1.2.4_fr.qsos", "Sencha Touch-2.3.1a_fr.qsos" };
+
 	@Test
 	public void testEvaluationParsing() {
 
-		try {
+		for (String evaluation : evaluations) {
 
-			Path lPath = Paths.get(ClassLoader.getSystemResource(
-					"Android SDK-latest_fr.qsos").toURI());
-			byte[] fileContent = Files.readAllBytes(lPath);
+			try {
 
-			Evaluation eval = new Evaluation();
-			eval.setFileContent(fileContent);
-			eval.setFile(lPath.getFileName().toString());
-			eval.setCreationTimestamp(TimeStamper.getTimestamp());
+				Path lPath = Paths.get(ClassLoader.getSystemResource(
+						evaluation).toURI());
+				byte[] fileContent = Files.readAllBytes(lPath);
 
-			eval = EvaluationUtils.parseEvaluation(eval);
+				Evaluation eval = new Evaluation();
+				eval.setFileContent(fileContent);
+				eval.setFile(lPath.getFileName().toString());
+				eval.setCreationTimestamp(TimeStamper.getTimestamp());
 
-			System.out.println(eval.toString());
+				eval = EvaluationUtils.parseEvaluation(eval);
 
-		} catch (URISyntaxException | IOException | SAXException
-				| ParserConfigurationException e) {
+				System.out.println(eval.toString());
 
-			System.out.println(e.getMessage());
+			} catch (URISyntaxException | IOException | SAXException
+					| ParserConfigurationException e) {
 
-			Assert.fail();
+				System.out.println(e.getMessage());
+
+				Assert.fail();
+			}
 		}
 	}
 
